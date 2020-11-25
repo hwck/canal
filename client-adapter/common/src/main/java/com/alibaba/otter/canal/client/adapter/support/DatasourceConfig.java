@@ -3,7 +3,10 @@ package com.alibaba.otter.canal.client.adapter.support;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import cn.beecp.BeeDataSource;
 import com.alibaba.druid.pool.DruidDataSource;
+
+import javax.sql.DataSource;
 
 /**
  * 数据源配置
@@ -13,7 +16,7 @@ import com.alibaba.druid.pool.DruidDataSource;
  */
 public class DatasourceConfig {
 
-    public final static Map<String, DruidDataSource> DATA_SOURCES = new ConcurrentHashMap<>(); // key对应的数据源
+    public final static Map<String, BeeDataSource> DATA_SOURCES = new ConcurrentHashMap<>(); // key对应的数据源
 
     private String                                   driver       = "com.mysql.jdbc.Driver";   // 默认为mysql jdbc驱动
     private String                                   url;                                      // jdbc url

@@ -16,13 +16,13 @@ import com.google.common.base.Joiner;
 
 public abstract class AbstractEtlService {
 
-    protected Logger      logger       = LoggerFactory.getLogger(this.getClass());
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private String        type;
+    private String type;
     private AdapterConfig config;
-    private final long    CNT_PER_TASK = 10000L;
+    private final long CNT_PER_TASK = 10000L;
 
-    public AbstractEtlService(String type, AdapterConfig config){
+    public AbstractEtlService(String type, AdapterConfig config) {
         this.type = type;
         this.config = config;
     }
@@ -39,7 +39,7 @@ public abstract class AbstractEtlService {
 
         long start = System.currentTimeMillis();
         try {
-            DruidDataSource dataSource = DatasourceConfig.DATA_SOURCES.get(config.getDataSourceKey());
+            DataSource dataSource = DatasourceConfig.DATA_SOURCES.get(config.getDataSourceKey());
 
             List<Object> values = new ArrayList<>();
             // 拼接条件
@@ -73,9 +73,11 @@ public abstract class AbstractEtlService {
 
             // 当大于1万条记录时开启多线程
             if (cnt >= 10000) {
-                int threadCount = Runtime.getRuntime().availableProcessors();
+//                int threadCount = Runtime.getRuntime().availableProcessors();
+                int threadCount = 4;
 
                 long offset;
+                long end;
                 long size = CNT_PER_TASK;
                 long workerCnt = cnt / size + (cnt % size == 0 ? 0 : 1);
 
@@ -87,13 +89,14 @@ public abstract class AbstractEtlService {
                 List<Future<Boolean>> futures = new ArrayList<>();
                 for (long i = 0; i < workerCnt; i++) {
                     offset = size * i;
-                    String sqlFinal = sql + " LIMIT " + offset + "," + size;
+                    end = offset + size;
+                    String sqlFinal = sql + " BETWEEN " + offset + " AND " + end;
                     Future<Boolean> future = executor.submit(() -> executeSqlImport(dataSource,
-                        sqlFinal,
-                        values,
-                        config.getMapping(),
-                        impCount,
-                        errMsg));
+                            sqlFinal,
+                            values,
+                            config.getMapping(),
+                            impCount,
+                            errMsg));
                     futures.add(future);
                 }
 

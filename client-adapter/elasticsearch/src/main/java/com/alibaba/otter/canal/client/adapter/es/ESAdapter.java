@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 import javax.sql.DataSource;
 
+import cn.beecp.BeeDataSource;
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
 
@@ -87,7 +88,8 @@ public class ESAdapter implements OuterAdapter {
                 SchemaItem schemaItem = SqlParser.parse(config.getEsMapping().getSql());
                 config.getEsMapping().setSchemaItem(schemaItem);
 
-                DruidDataSource dataSource = DatasourceConfig.DATA_SOURCES.get(config.getDataSourceKey());
+//                DruidDataSource dataSource = DatasourceConfig.DATA_SOURCES.get(config.getDataSourceKey());
+                BeeDataSource dataSource = DatasourceConfig.DATA_SOURCES.get(config.getDataSourceKey());
                 if (dataSource == null || dataSource.getUrl() == null) {
                     throw new RuntimeException("No data source found: " + config.getDataSourceKey());
                 }

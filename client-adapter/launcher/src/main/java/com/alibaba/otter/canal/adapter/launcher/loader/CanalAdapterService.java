@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 
+import cn.beecp.BeeDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -76,7 +77,14 @@ public class CanalAdapterService {
                 adapterLoader.destroy();
                 adapterLoader = null;
             }
-            for (DruidDataSource druidDataSource : DatasourceConfig.DATA_SOURCES.values()) {
+//            for (DruidDataSource druidDataSource : DatasourceConfig.DATA_SOURCES.values()) {
+//                try {
+//                    druidDataSource.close();
+//                } catch (Exception e) {
+//                    logger.error(e.getMessage(), e);
+//                }
+//            }
+            for (BeeDataSource druidDataSource : DatasourceConfig.DATA_SOURCES.values()) {
                 try {
                     druidDataSource.close();
                 } catch (Exception e) {

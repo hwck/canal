@@ -7,6 +7,7 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cn.beecp.BeeDataSource;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
@@ -23,6 +24,8 @@ import com.alibaba.otter.canal.client.adapter.es.config.SqlParser;
 import com.alibaba.otter.canal.client.adapter.support.DatasourceConfig;
 import com.alibaba.otter.canal.client.adapter.support.MappingConfigsLoader;
 import com.alibaba.otter.canal.client.adapter.support.Util;
+
+import javax.sql.DataSource;
 
 public class ESConfigMonitor {
 
@@ -133,7 +136,8 @@ public class ESConfigMonitor {
             SchemaItem schemaItem = SqlParser.parse(config.getEsMapping().getSql());
             config.getEsMapping().setSchemaItem(schemaItem);
 
-            DruidDataSource dataSource = DatasourceConfig.DATA_SOURCES.get(config.getDataSourceKey());
+//            DruidDataSource dataSource = DatasourceConfig.DATA_SOURCES.get(config.getDataSourceKey());
+            BeeDataSource dataSource = DatasourceConfig.DATA_SOURCES.get(config.getDataSourceKey());
             if (dataSource == null || dataSource.getUrl() == null) {
                 throw new RuntimeException("No data source found: " + config.getDataSourceKey());
             }
