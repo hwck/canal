@@ -85,7 +85,7 @@ public class AdapterCanalConfig extends CanalClientConfig {
                 config.setPassword(datasourceConfig.getPassword());
                 config.setMaxActive(10);
                 config.setInitialSize(0);
-                config.setMaxWait(8000);//ms
+                config.setMaxWait(6000);//ms
                 BeeDataSource ds = new BeeDataSource(config);
 
                 DatasourceConfig.DATA_SOURCES.put(entry.getKey(), ds);
