@@ -73,8 +73,8 @@ public abstract class AbstractEtlService {
 
             // 当大于1万条记录时开启多线程
             if (cnt >= 10000) {
-//                int threadCount = Runtime.getRuntime().availableProcessors();
-                int threadCount = 4;
+                int threadCount = Runtime.getRuntime().availableProcessors();
+//                int threadCount = 4;
 
                 long offset;
                 long end;
