@@ -38,18 +38,18 @@ public class TestConstant {
 //        }
 //    }
 
-    public final static BeeDataSource dataSource;
-
-    static {
-        dataSource = new BeeDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setJdbcUrl(jdbcUrl);
-        dataSource.setUsername(jdbcUser);
-        dataSource.setPassword(jdbcPassword);
-        dataSource.setMaxActive(10);
-        dataSource.setInitialSize(0);
-        dataSource.setMaxWait(8000);//ms
-    }
+//    public final static BeeDataSource dataSource;
+//
+//    static {
+//        dataSource = new BeeDataSource();
+//        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+//        dataSource.setJdbcUrl(jdbcUrl);
+//        dataSource.setUsername(jdbcUser);
+//        dataSource.setPassword(jdbcPassword);
+//        dataSource.setMaxActive(10);
+//        dataSource.setInitialSize(0);
+//        dataSource.setMaxWait(8000);//ms
+//    }
 
 
 }

@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import cn.beecp.BeeDataSource;
 import com.alibaba.druid.pool.DruidDataSource;
+import com.zaxxer.hikari.HikariDataSource;
 
 import javax.sql.DataSource;
 
@@ -16,7 +17,7 @@ import javax.sql.DataSource;
  */
 public class DatasourceConfig {
 
-    public final static Map<String, BeeDataSource> DATA_SOURCES = new ConcurrentHashMap<>(); // key对应的数据源
+    public final static Map<String, HikariDataSource> DATA_SOURCES = new ConcurrentHashMap<>(); // key对应的数据源
 
     private String                                   driver       = "com.mysql.jdbc.Driver";   // 默认为mysql jdbc驱动
     private String                                   url;                                      // jdbc url

@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.beecp.BeeDataSource;
+import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
@@ -137,12 +138,15 @@ public class ESConfigMonitor {
             config.getEsMapping().setSchemaItem(schemaItem);
 
 //            DruidDataSource dataSource = DatasourceConfig.DATA_SOURCES.get(config.getDataSourceKey());
-            BeeDataSource dataSource = DatasourceConfig.DATA_SOURCES.get(config.getDataSourceKey());
-            if (dataSource == null || dataSource.getUrl() == null) {
+//            BeeDataSource dataSource = DatasourceConfig.DATA_SOURCES.get(config.getDataSourceKey());
+//            if (dataSource == null || dataSource.getUrl() == null) {
+            HikariDataSource dataSource = DatasourceConfig.DATA_SOURCES.get(config.getDataSourceKey());
+            if (dataSource == null || dataSource.getJdbcUrl() == null) {
                 throw new RuntimeException("No data source found: " + config.getDataSourceKey());
             }
             Pattern pattern = Pattern.compile(".*:(.*)://.*/(.*)\\?.*$");
-            Matcher matcher = pattern.matcher(dataSource.getUrl());
+//            Matcher matcher = pattern.matcher(dataSource.getUrl());
+            Matcher matcher = pattern.matcher(dataSource.getJdbcUrl());
             if (!matcher.find()) {
                 throw new RuntimeException("Not found the schema of jdbc-url: " + config.getDataSourceKey());
             }

@@ -9,6 +9,8 @@ import java.util.Set;
 
 import cn.beecp.BeeDataSource;
 import cn.beecp.BeeDataSourceConfig;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -78,15 +80,18 @@ public class AdapterCanalConfig extends CanalClientConfig {
 //                    throw new RuntimeException(e.getMessage(), e);
 //                }
 
-                BeeDataSourceConfig config = new BeeDataSourceConfig();
+//                BeeDataSourceConfig config = new BeeDataSourceConfig();
+                HikariConfig config = new HikariConfig();
                 config.setDriverClassName(datasourceConfig.getDriver());
                 config.setJdbcUrl(datasourceConfig.getUrl());
                 config.setUsername(datasourceConfig.getUsername());
                 config.setPassword(datasourceConfig.getPassword());
-                config.setMaxActive(10);
-                config.setInitialSize(0);
-                config.setMaxWait(6000);//ms
-                BeeDataSource ds = new BeeDataSource(config);
+                config.setMaxLifetime(10);
+//                config.setMaxActive(10);
+//                config.setInitialSize(0);
+//                config.setMaxWait(6000);//ms
+//                BeeDataSource ds = new BeeDataSource(config);
+                HikariDataSource ds = new HikariDataSource(config);
 
                 DatasourceConfig.DATA_SOURCES.put(entry.getKey(), ds);
             }

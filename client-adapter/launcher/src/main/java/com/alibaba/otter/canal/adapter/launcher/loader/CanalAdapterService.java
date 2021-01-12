@@ -5,6 +5,7 @@ import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 
 import cn.beecp.BeeDataSource;
+import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -84,13 +85,24 @@ public class CanalAdapterService {
 //                    logger.error(e.getMessage(), e);
 //                }
 //            }
-            for (BeeDataSource druidDataSource : DatasourceConfig.DATA_SOURCES.values()) {
+
+//            for (BeeDataSource beeDataSource : DatasourceConfig.DATA_SOURCES.values()) {
+//                try {
+//                    beeDataSource.close();
+//                } catch (Exception e) {
+//                    logger.error(e.getMessage(), e);
+//                }
+//            }
+
+            for (HikariDataSource hikariDataSource : DatasourceConfig.DATA_SOURCES.values()) {
                 try {
-                    druidDataSource.close();
+                    hikariDataSource.close();
                 } catch (Exception e) {
                     logger.error(e.getMessage(), e);
                 }
             }
+
+
             DatasourceConfig.DATA_SOURCES.clear();
         } catch (Throwable e) {
             logger.warn("## something goes wrong when stopping canal client adapters:", e);
