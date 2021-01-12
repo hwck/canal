@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import cn.beecp.BeeDataSource;
 import com.alibaba.druid.pool.DruidDataSource;
+import com.zaxxer.hikari.HikariDataSource;
 
 public class TestConstant {
 
@@ -13,6 +14,17 @@ public class TestConstant {
 
     public final static String esHosts = "127.0.0.1:9300";
     public final static String clusterName = "elasticsearch";
+
+    public final static HikariDataSource dataSource;
+
+    static {
+        dataSource = new HikariDataSource();
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setJdbcUrl(jdbcUrl);
+        dataSource.setUsername(jdbcUser);
+        dataSource.setPassword(jdbcPassword);
+        dataSource.setMaxLifetime(10);
+    }
 
 //    public final static DruidDataSource dataSource;
 //

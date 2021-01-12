@@ -1,5 +1,6 @@
 package com.alibaba.otter.canal.client.adapter.es.test;
 
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
@@ -33,8 +34,8 @@ public class ConfigLoadTest {
         Assert.assertEquals("id", esMapping.get_id());
         Assert.assertNotNull(esMapping.getSql());
 
-        // Map<String, List<ESSyncConfig>> dbTableEsSyncConfig =
-        // ESSyncConfigLoader.getDbTableEsSyncConfig();
-        // Assert.assertFalse(dbTableEsSyncConfig.isEmpty());
+//         Map<String, List<ESSyncConfig>> dbTableEsSyncConfig =
+//         ESSyncConfigLoader.getDbTableEsSyncConfig();
+//         Assert.assertFalse(dbTableEsSyncConfig.isEmpty());
     }
 }
